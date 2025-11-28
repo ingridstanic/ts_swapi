@@ -1,3 +1,4 @@
+import { createHTML } from "./htmlUtils";
 import "./style.css";
 import { getSwapiCharacter } from "./swapiServices";
 
@@ -13,5 +14,6 @@ searchForm?.addEventListener("submit", async (e) => {
 
   const data = await getSwapiCharacter(searchText);
 
-  // createHTML();
+  createHTML(data.results);
+  console.log(data);
 });
