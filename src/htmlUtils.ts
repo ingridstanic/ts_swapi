@@ -1,6 +1,6 @@
 import type { SwapiCharacter } from "./models/SwapiCharacter";
 
-export const createHTML = (swapiCharacter: SwapiCharacter[]) => {
+export const createHTML = (swapiCharacter: SwapiCharacter) => {
   const section = document.getElementById("swapiContainer");
 
   if (section) {

@@ -1,4 +1,3 @@
-import type { SwapiCharacter } from "./models/SwapiCharacter";
 import type { SwapiResponse } from "./models/SwapiRespone";
 
 export const getSwapiCharacter = async (search: string) => {
