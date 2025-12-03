@@ -14,6 +14,6 @@ searchForm?.addEventListener("submit", async (e) => {
 
   const data = await getSwapiCharacter(searchText);
 
-  createHTML(data);
+  createHTML(data.results);
   console.log(data);
 });

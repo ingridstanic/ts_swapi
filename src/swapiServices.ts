@@ -6,5 +6,5 @@ export const getSwapiCharacter = async (search: string) => {
   );
   const data: SwapiResponse = await response.json();
 
-  return data.results;
+  return data;
 };

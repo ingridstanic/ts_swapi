@@ -4,5 +4,5 @@ export type SwapiCharacter = {
   eye_color: string;
   birth_year: string;
   gender: string;
-  films: string[];
+  films: [];
 };

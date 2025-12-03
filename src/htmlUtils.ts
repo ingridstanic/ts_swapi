@@ -1,29 +1,50 @@
+import type { Films } from "./models/Films";
 import type { SwapiCharacter } from "./models/SwapiCharacter";
 
-export const createHTML = (swapiCharacter: SwapiCharacter) => {
+export const createHTML = (swapiCharacter: SwapiCharacter[]) => {
   const section = document.getElementById("swapiContainer");
 
   if (section) {
     section.innerHTML = "";
   }
+  swapiCharacter.forEach((character) => {
+    const name = document.createElement("h2");
+    const birth = document.createElement("p");
+    const gender = document.createElement("p");
+    const header = document.createElement("h3");
 
-  const name = document.createElement("h2");
-  const birth = document.createElement("p");
-  const gender = document.createElement("p");
-  const films = document.createElement("ul");
+    name.innerHTML = "Name: " + character.name;
+    birth.innerHTML = "Date of birth: " + character.birth_year;
+    gender.innerHTML = "Gender: " + character.gender;
+    header.innerHTML = "Movies " + character.name + " appeared in:";
 
-  name.innerHTML = swapiCharacter.name;
-  birth.innerHTML = swapiCharacter.birth_year;
-  gender.innerHTML = swapiCharacter.gender;
+    const promises: Promise<Response>[] = [];
+    character.films.forEach((url) => {
+      promises.push(fetch(url));
+    });
+    Promise.all(promises).then((responses) => {
+      responses.forEach(async (response) => {
+        const movies: Films = await response.json();
 
-  //   swapiCharacter.films.forEach((film) => {
-  //     const li = document.createElement("a");
-  //     // li.innerHTML = film
-  //     films.appendChild(li);
-  //   });
+        const movieList: Films[] = [];
+        movieList.push(movies);
 
-  section?.appendChild(name);
-  section?.appendChild(birth);
-  section?.appendChild(gender);
-  section?.appendChild(films);
+        movieList.forEach((movie) => {
+          const movieContainer = document.createElement("ul");
+          const title = document.createElement("li");
+
+          title.innerHTML = movie.title;
+          title.className = "title";
+
+          movieContainer.appendChild(title);
+          section?.appendChild(movieContainer);
+        });
+      });
+    });
+
+    section?.appendChild(name);
+    section?.appendChild(birth);
+    section?.appendChild(gender);
+    section?.appendChild(header);
+  });
 };
