@@ -16,7 +16,7 @@ export const createHTML = (swapiCharacter: SwapiCharacter[]) => {
     name.innerHTML = "Name: " + character.name;
     birth.innerHTML = "Date of birth: " + character.birth_year;
     gender.innerHTML = "Gender: " + character.gender;
-    header.innerHTML = "Movies " + character.name + " appeared in:";
+    header.innerHTML = "Movies " + character.name + " starred in:";
 
     const promises: Promise<Response>[] = [];
     character.films.forEach((url) => {
